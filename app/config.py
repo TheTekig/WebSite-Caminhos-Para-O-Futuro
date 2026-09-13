@@ -52,7 +52,11 @@ PALESTRANTES = [
         "nome": "Rafael Furlanetti",
         "cargo": "Sócio-Diretor Institucional da XP Inc. e Presidente do Conselho de Administração da ANCORD",
         "bio": "Executivo com ampla trajetória no mercado financeiro, atua na condução estratégica da XP Inc. e na presidência do Conselho de Administração da ANCORD, contribuindo para o fortalecimento do mercado de capitais e da educação financeira no Brasil.",
-        "foto": "/static/img/palestrantes/1.png",
+        "foto": "/static/img/palestrantes/5.jpeg",
+        "foto_hero": "/static/img/palestrantes/images.jpg",
+        # Fotos extras que aparecem "espiando" atrás do card principal no Hero
+        # (até 2 são usadas). Deixe vazio pra mostrar só o card principal.
+        "fotos_hero_extra": ["/static/img/palestrantes/8.avif","/static/img/palestrantes/7.webp",],
     },
 ]
 

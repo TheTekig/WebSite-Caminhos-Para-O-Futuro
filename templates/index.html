@@ -48,50 +48,71 @@
                 <span class="hero-decor-circle hero-decor-circle--dot"></span>
             </div>
 
-            <div class="hero-content reveal">
+            <div class="hero-layout">
+                <div class="hero-content reveal">
 
-                <span class="hero-badge">✦ Inscrições abertas</span>
+                    <span class="hero-badge">✦ Inscrições abertas</span>
 
-                <div class="hero-logo-wrapper">
-                    <img src="/static/img/emblema-transp.png" alt="{{ evento_nome }}" class="hero-logo-img">
-                </div>
+                    <div class="hero-logo-wrapper">
+                        <img src="/static/img/emblema-transp.png" alt="{{ evento_nome }}" class="hero-logo-img">
+                    </div>
 
-                <p class="hero-tagline">{{ evento_tagline }}</p>
+                    <p class="hero-tagline"><b>Palestra: </b>{{ evento_tagline }}</p>
 
-                <div class="hero-info-clean">
-                    <span>📅 {{ evento_data }}</span>
-                    <span class="separator">•</span>
-                    <span>⏰ {{ evento_hora }}</span>
-                    <span class="separator">•</span>
-                    <span>📍 {{ evento_local }}</span>
-                </div>
+                    <div class="hero-info-clean">
+                        <span>📅 {{ evento_data }}</span>
+                        <span class="separator">•</span>
+                        <span>⏰ {{ evento_hora }}</span>
+                        <span class="separator">•</span>
+                        <span>📍 {{ evento_local }}</span>
+                    </div>
 
-                <div id="countdown" class="countdown" data-alvo="{{ evento_datetime_iso }}">
-                    <span class="countdown-eyebrow">Faltam</span>
-                    <div class="countdown-grid">
-                        <div class="countdown-item">
-                            <span class="countdown-num" data-cd="dias">00</span>
-                            <span class="countdown-label">Dias</span>
+                    <div id="countdown" class="countdown" data-alvo="{{ evento_datetime_iso }}">
+                        <span class="countdown-eyebrow">Faltam</span>
+                        <div class="countdown-grid">
+                            <div class="countdown-item">
+                                <span class="countdown-num" data-cd="dias">00</span>
+                                <span class="countdown-label">Dias</span>
+                            </div>
+                            <div class="countdown-item">
+                                <span class="countdown-num" data-cd="horas">00</span>
+                                <span class="countdown-label">Horas</span>
+                            </div>
+                            <div class="countdown-item">
+                                <span class="countdown-num" data-cd="min">00</span>
+                                <span class="countdown-label">Min</span>
+                            </div>
+                            <div class="countdown-item">
+                                <span class="countdown-num" data-cd="seg">00</span>
+                                <span class="countdown-label">Seg</span>
+                            </div>
                         </div>
-                        <div class="countdown-item">
-                            <span class="countdown-num" data-cd="horas">00</span>
-                            <span class="countdown-label">Horas</span>
-                        </div>
-                        <div class="countdown-item">
-                            <span class="countdown-num" data-cd="min">00</span>
-                            <span class="countdown-label">Min</span>
-                        </div>
-                        <div class="countdown-item">
-                            <span class="countdown-num" data-cd="seg">00</span>
-                            <span class="countdown-label">Seg</span>
-                        </div>
+                    </div>
+
+                    <div class="hero-cta-row">
+                        <a href="#inscricao" class="btn-primary">Inscreva-se Gratuitamente</a>
+                        <a href="#palestrante" class="btn-secondary">Ver Palestrante</a>
                     </div>
                 </div>
 
-                <div class="hero-cta-row">
-                    <a href="#inscricao" class="btn-primary">Inscreva-se Gratuitamente</a>
-                    <a href="#palestrante" class="btn-secondary">Ver Palestrante</a>
+                {% if palestrantes %}
+                <div class="hero-speaker reveal">
+                    <div class="hero-speaker-stack">
+                        {% for extra in palestrantes[0].fotos_hero_extra[:2] %}
+                        <div class="hero-speaker-card hero-speaker-card--back hero-speaker-card--back-{{ loop.index }}">
+                            <img src="{{ extra }}" alt="">
+                        </div>
+                        {% endfor %}
+                        <div class="hero-speaker-card hero-speaker-card--front">
+                            <img src="{{ palestrantes[0].foto_hero }}" alt="{{ palestrantes[0].nome }}">
+                        </div>
+                    </div>
+                    <div class="hero-speaker-caption">
+                        <span class="hero-speaker-name">{{ palestrantes[0].nome }}</span>
+                        <span class="hero-speaker-tag">Palestrante</span>
+                    </div>
                 </div>
+                {% endif %}
             </div>
         </div>
     </section>
