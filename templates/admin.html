@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo — {{ evento_nome }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}">
+</head>
+<body class="admin-body">
+
+    <!-- Header do Admin -->
+    <div class="admin-header">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <img src="/static/img/emblema-transp.png" alt="Logo" style="height: 32px; object-fit: contain;">
+            <span style="font-weight: 700; font-size: 1.125rem;">Painel de Controle</span>
+        </div>
+        <div style="display: flex; gap: 1rem; align-items: center;">
+            <a href="/" target="_blank" style="color: var(--text-muted); text-decoration: none; font-size: 0.9rem;">Ver Site ↗</a>
+            <form action="/admin/logout" method="POST" style="margin: 0;">
+                <button type="submit" class="btn-primary" style="padding: 0.5rem 1rem; font-size: 0.875rem; background: var(--error);">Sair</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Estatísticas -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h3 id="stat-total">{{ stats.total }}</h3>
+            <p>Total de Inscritos</p>
+        </div>
+        <div class="stat-card">
+            <h3 id="stat-disponiveis">{{ stats.disponiveis }}</h3>
+            <p>Disponíveis para Sorteio</p>
+        </div>
+        <div class="stat-card">
+            <h3 id="stat-sorteados">{{ stats.sorteados }}</h3>
+            <p>Já Sorteados</p>
+        </div>
+    </div>
+
+    <!-- Ações e Gerenciamento -->
+    <div style="display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap;">
+        <button id="btn-abrir-sorteio" class="btn-primary" style="background: var(--gold); color: #0b0f19;">🎲 Realizar Sorteio</button>
+        <a href="/api/inscricoes/exportar" class="btn-primary" style="background: var(--primary-light); border: 1px solid var(--border-color); text-decoration: none; display: inline-flex; align-items: center;">📥 Exportar CSV</a>
+        <button id="btn-escolher-csv" class="btn-primary" style="background: var(--primary-light); border: 1px solid var(--border-color);">📤 Importar CSV</button>
+        <input type="file" id="arquivo-csv" accept=".csv" style="display: none;">
+        <button id="btn-resetar" class="btn-primary" style="background: transparent; border: 1px solid var(--error); color: var(--error);">🔄 Resetar Sorteio</button>
+    </div>
+
+    <div id="resultado-importacao" style="margin-bottom: 2rem;"></div>
+
+    <!-- Grid Principal (Lista de Inscritos e Vencedores) -->
+    <div class="admin-panel-grid">
+        <!-- Tabela de Inscritos -->
+        <div class="admin-card">
+            <div class="admin-card-header">
+                <h2>Inscritos no Evento</h2>
+                <input type="text" id="busca-inscritos" class="busca-input" placeholder="Buscar por nome ou e-mail...">
+            </div>
+            <div class="tabela-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>E-mail</th>
+                            <th>Telefone</th>
+                            <th>CPF</th>
+                            <th>Perfil</th>
+                            <th>Empresa / Matrícula</th>
+                            <th>Inscrito em</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-inscritos">
+                        <tr>
+                            <td colspan="9" style="text-align: center; color: var(--text-muted);">Carregando inscritos...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Lista de Vencedores -->
+        <div class="admin-card">
+            <h2>🏆 Vencedores Sorteados</h2>
+            <div id="lista-vencedores" style="display: flex; flex-direction: column; gap: 0.75rem;">
+                <p id="vencedores-vazio" style="color: var(--text-muted); font-size: 0.95rem;">Ninguém foi sorteado ainda.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay de Sorteio (Tela Cheia Animada) -->
+    <div id="sorteio-overlay" class="sorteio-overlay">
+        <div class="sorteio-conteudo">
+            <span id="sorteio-eyebrow" style="color: var(--gold); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.875rem;">Sorteando...</span>
+            <div id="sorteio-glow">
+                <h1 id="sorteio-nome" class="sorteio-nome">---</h1>
+            </div>
+            <div id="sorteio-cta" style="margin-top: 2rem; display: flex; gap: 1rem; justify-content: center; visibility: hidden;">
+                <button id="btn-sortear-outro" class="btn-primary" style="background: var(--gold); color: #0b0f19;">Sortear Outro</button>
+                <button id="btn-fechar-sorteio" class="btn-primary" style="background: var(--primary-light); border: 1px solid var(--border-color);">Fechar</button>
+            </div>
+        </div>
+        <button id="btn-fechar-sorteio-2" style="position: absolute; top: 2rem; right: 2rem; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer;">✕</button>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <script src="/static/js/admin.js"></script>
+</body>
+</html>

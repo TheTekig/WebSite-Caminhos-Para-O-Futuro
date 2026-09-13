@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ evento_nome }} — {{ evento_tagline }}</title>
+    <link rel="icon" href="/static/img/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}">
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo-container">
+            <img src="/static/img/logo-header-transp.png" alt="{{ evento_nome }}">
+        </div>
+        <button id="nav-toggle" class="nav-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-links">
+            <span></span><span></span><span></span>
+        </button>
+        <ul id="nav-links" class="nav-links">
+            <li><a href="#inicio">Início</a></li>
+            <li><a href="#sobre">Sobre</a></li>
+            <li><a href="#palestrante">Palestrante</a></li>
+            <li><a href="#programacao">Programação</a></li>
+            <li><a href="#local">Localização</a></li>
+            <li><a href="#apoio">Realização</a></li>
+            <li><a href="#inscricao" class="btn-nav">Inscreva-se</a></li>
+        </ul>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="hero-bg">
+            <img src="/static/img/banner-evento.png" alt="" aria-hidden="true">
+            <div class="hero-bg-overlay"></div>
+        </div>
+
+        <div class="hero-inner">
+            <div class="hero-decor" aria-hidden="true">
+                <span class="hero-decor-dots"></span>
+                <span class="hero-decor-dots hero-decor-dots--alt"></span>
+                <span class="hero-decor-circle hero-decor-circle--outline"></span>
+                <span class="hero-decor-circle hero-decor-circle--outline-sm"></span>
+                <span class="hero-decor-circle hero-decor-circle--fill"></span>
+                <span class="hero-decor-circle hero-decor-circle--dot"></span>
+            </div>
+
+            <div class="hero-content reveal">
+
+                <span class="hero-badge">✦ Inscrições abertas</span>
+
+                <div class="hero-logo-wrapper">
+                    <img src="/static/img/emblema-transp.png" alt="{{ evento_nome }}" class="hero-logo-img">
+                </div>
+
+                <p class="hero-tagline">{{ evento_tagline }}</p>
+
+                <div class="hero-info-clean">
+                    <span>📅 {{ evento_data }}</span>
+                    <span class="separator">•</span>
+                    <span>⏰ {{ evento_hora }}</span>
+                    <span class="separator">•</span>
+                    <span>📍 {{ evento_local }}</span>
+                </div>
+
+                <div id="countdown" class="countdown" data-alvo="{{ evento_datetime_iso }}">
+                    <span class="countdown-eyebrow">Faltam</span>
+                    <div class="countdown-grid">
+                        <div class="countdown-item">
+                            <span class="countdown-num" data-cd="dias">00</span>
+                            <span class="countdown-label">Dias</span>
+                        </div>
+                        <div class="countdown-item">
+                            <span class="countdown-num" data-cd="horas">00</span>
+                            <span class="countdown-label">Horas</span>
+                        </div>
+                        <div class="countdown-item">
+                            <span class="countdown-num" data-cd="min">00</span>
+                            <span class="countdown-label">Min</span>
+                        </div>
+                        <div class="countdown-item">
+                            <span class="countdown-num" data-cd="seg">00</span>
+                            <span class="countdown-label">Seg</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-cta-row">
+                    <a href="#inscricao" class="btn-primary">Inscreva-se Gratuitamente</a>
+                    <a href="#palestrante" class="btn-secondary">Ver Palestrante</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Inscrição Section -->
+    <section id="inscricao">
+        <div class="section-decor" aria-hidden="true">
+            <span class="section-decor-dots" style="top: 2.5rem; right: 3rem; width: 110px; height: 70px;"></span>
+            <span class="section-decor-circle--gold" style="bottom: 2rem; left: 1.5rem; width: 44px; height: 44px; animation-duration: 6s; animation-delay: 0.3s;"></span>
+        </div>
+        <div class="section-title reveal">
+            <h2>Faça sua Inscrição</h2>
+            <p>Garanta sua presença neste grande evento de transformação.</p>
+        </div>
+
+        <div class="inscricao-container reveal">
+            <div id="etapa-formulario">
+                <form id="form-inscricao" novalidate>
+                    <h3 class="form-grupo-titulo">Dados pessoais</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="nome">Nome completo</label>
+                            <input type="text" id="nome" name="nome" required placeholder="Digite seu nome completo" autocomplete="name">
+                            <span class="erro-msg" data-erro-de="nome"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input type="email" id="email" name="email" required placeholder="seu@email.com" autocomplete="email">
+                            <span class="erro-msg" data-erro-de="email"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="telefone">Telefone / WhatsApp</label>
+                            <input type="text" id="telefone" name="telefone" required placeholder="(27) 99999-9999" autocomplete="tel" inputmode="numeric">
+                            <span class="erro-msg" data-erro-de="telefone"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cpf">CPF{% if cpf_obrigatorio %} *{% endif %}</label>
+                            <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" inputmode="numeric" {% if cpf_obrigatorio %}required{% endif %}>
+                            <span class="erro-msg" data-erro-de="cpf"></span>
+                        </div>
+
+                        {% for campo in campos_extras %}
+                        <div class="form-group">
+                            <label for="{{ campo.id }}">{{ campo.label }}{% if campo.obrigatorio %} *{% endif %}</label>
+                            <input type="{{ campo.type }}" id="{{ campo.id }}" name="{{ campo.id }}" {% if campo.obrigatorio %}required{% endif %}>
+                            <span class="erro-msg" data-erro-de="{{ campo.id }}"></span>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                    <h3 class="form-grupo-titulo">Perfil</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="perfil">Qual é o seu perfil?</label>
+                            <select id="perfil" name="perfil" required>
+                                <option value="">Selecione...</option>
+                                {% for perfil in perfis_inscricao %}
+                                <option value="{{ perfil }}">{{ perfil }}</option>
+                                {% endfor %}
+                            </select>
+                            <span class="erro-msg" data-erro-de="perfil"></span>
+                        </div>
+
+                        <div class="form-group campo-perfil" id="grupo-campo-perfil" hidden>
+                            <label id="label-campo-perfil" for="campo-perfil-input">Informação do perfil</label>
+                            <input type="text" id="campo-perfil-input" name="">
+                            <span class="erro-msg" data-erro-de="campo-perfil"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-submit">
+                        <button type="submit" id="btn-enviar" class="btn-primary">Confirmar Inscrição</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Etapa Confirmação Sucesso -->
+            <div id="etapa-confirmacao" class="etapa-confirmacao" style="display: none;">
+                <div class="confirmacao-icone">🎉</div>
+                <h3>Inscrição Realizada com Sucesso!</h3>
+                <p>Estamos muito felizes em contar com sua presença no {{ evento_nome }}.</p>
+                <button onclick="location.reload()" class="btn-primary">Fazer Nova Inscrição</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Palestrante Section -->
+    <section id="palestrante">
+        <div class="section-decor" aria-hidden="true">
+            <span class="section-decor-circle--fill" style="top: 1rem; left: -2rem; width: 200px; height: 200px; animation-duration: 9s;"></span>
+            <span class="section-decor-circle--outline" style="bottom: 3rem; right: 4rem; width: 40px; height: 40px; animation-duration: 5.5s; animation-delay: 0.6s;"></span>
+        </div>
+        <div class="section-title reveal">
+            <h2>Palestrante Principal</h2>
+            <p>Conheça quem vai inspirar a nossa jornada.</p>
+        </div>
+
+        {% for p in palestrantes %}
+        <div class="palestrante-card reveal">
+            <div class="palestrante-img">
+                <img src="{{ p.foto }}" alt="{{ p.nome }}">
+            </div>
+            <div class="palestrante-info">
+                <h3>{{ p.nome }}</h3>
+                <span class="palestrante-cargo">{{ p.cargo }}</span>
+                <p class="palestrante-bio">{{ p.bio }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </section>
+
+    <!-- Programação Section -->
+    <section id="programacao">
+        <div class="section-decor" aria-hidden="true">
+            <span class="section-decor-dots" style="bottom: 3rem; right: 2rem; width: 100px; height: 64px;"></span>
+            <span class="section-decor-circle--outline" style="top: 4rem; left: 1rem; width: 30px; height: 30px; animation-duration: 5s; animation-delay: 1s;"></span>
+        </div>
+        <div class="section-title reveal">
+            <h2>Programação do Dia</h2>
+            <p>Confira os horários e atividades planejadas.</p>
+        </div>
+
+        <div class="programacao-timeline">
+            {% for prog in programacao %}
+            <div class="prog-item reveal">
+                <div class="prog-hora">{{ prog.hora }}</div>
+                <div class="prog-detalhes">
+                    <h4>{{ prog.titulo }}</h4>
+                    <p>{{ prog.descricao }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Localização Section -->
+    <section id="local">
+        <div class="section-decor" aria-hidden="true">
+            <span class="section-decor-circle--outline" style="top: 2rem; right: 3rem; width: 54px; height: 54px; animation-duration: 6.5s; animation-delay: 0.4s;"></span>
+            <span class="section-decor-circle--gold" style="bottom: 1rem; left: 2.5rem; width: 26px; height: 26px; animation-duration: 4.5s; animation-delay: 0.8s;"></span>
+        </div>
+        <div class="section-title reveal">
+            <h2>Localização do Evento</h2>
+            <p>Venha nos acompanhar presencialmente no campus.</p>
+        </div>
+
+        <div class="local-card reveal">
+            <h3>{{ evento_local }}</h3>
+            <p>{{ evento_endereco }}</p>
+
+            <div class="mapa-container">
+                <iframe
+                    src="https://maps.google.com/maps?q=IFES+Campus+Colatina&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                    width="100%"
+                    height="380"
+                    style="border:0;"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Apoio e Realização Section -->
+    <section id="apoio">
+        <div class="section-decor" aria-hidden="true">
+            <span class="section-decor-dots" style="top: 2rem; left: 2rem; width: 90px; height: 60px;"></span>
+            <span class="section-decor-circle--fill" style="bottom: -3rem; right: -2rem; width: 180px; height: 180px; animation-duration: 8.5s; animation-delay: 0.5s;"></span>
+        </div>
+        <div class="section-title reveal">
+            <h2>Apoio e Realização</h2>
+            <p>Instituições que tornam este sonho possível.</p>
+        </div>
+
+        <div class="apoio-grid reveal">
+            {% for patro in patrocinadores %}
+            <div class="apoio-logo">
+                <img src="{{ patro.logo }}" alt="{{ patro.nome }}">
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p><strong>{{ evento_nome }}</strong> — {{ evento_tagline }}</p>
+        <p>&copy; 2026 IFES Campus Colatina. Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <script id="perfil-campos-data" type="application/json">{{ perfil_campos_json | safe }}</script>
+    <script src="/static/js/site.js"></script>
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
