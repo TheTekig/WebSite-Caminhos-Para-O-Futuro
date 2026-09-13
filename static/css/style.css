@@ -363,11 +363,21 @@ header {
 }
 
 .hero-content {
-  max-width: 640px;
+  display: grid;
+  grid-template-columns: minmax(0, 640px) auto;
+  grid-template-rows: repeat(6, auto);
+  align-items: start;
+  column-gap: 3rem;
+}
+
+.hero-content > *:not(.hero-speaker) {
+  grid-column: 1;
 }
 
 .hero-speaker {
-  flex: 0 0 auto;
+  grid-column: 2;
+  grid-row: 1 / -1;
+  align-self: center;
 }
 
 .hero-speaker-stack {
@@ -515,14 +525,23 @@ header {
     gap: 2.5rem;
   }
 
+  .hero-content {
+    display: block;
+    max-width: none;
+  }
+
   .hero-speaker {
-    align-self: center;
+    margin: 0 0 2.5rem;
   }
 
   .hero-speaker-stack,
   .hero-speaker-card--front,
   .hero-speaker-card--back {
     width: 240px;
+  }
+
+  .hero-speaker-stack {
+    margin: 0 auto;
   }
 
   .hero-speaker-card {

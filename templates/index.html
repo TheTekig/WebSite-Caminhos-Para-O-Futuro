@@ -59,6 +59,25 @@
 
                     <p class="hero-tagline"><b>Palestra: </b>{{ evento_tagline }}</p>
 
+                    {% if palestrantes %}
+                    <div class="hero-speaker reveal">
+                        <div class="hero-speaker-stack">
+                            {% for extra in palestrantes[0].fotos_hero_extra[:2] %}
+                            <div class="hero-speaker-card hero-speaker-card--back hero-speaker-card--back-{{ loop.index }}">
+                                <img src="{{ extra }}" alt="">
+                            </div>
+                            {% endfor %}
+                            <div class="hero-speaker-card hero-speaker-card--front">
+                                <img src="{{ palestrantes[0].foto_hero }}" alt="{{ palestrantes[0].nome }}">
+                            </div>
+                        </div>
+                        <div class="hero-speaker-caption">
+                            <span class="hero-speaker-name">{{ palestrantes[0].nome }}</span>
+                            <span class="hero-speaker-tag">Palestrante</span>
+                        </div>
+                    </div>
+                    {% endif %}
+
                     <div class="hero-info-clean">
                         <span>📅 {{ evento_data }}</span>
                         <span class="separator">•</span>
@@ -94,25 +113,6 @@
                         <a href="#palestrante" class="btn-secondary">Ver Palestrante</a>
                     </div>
                 </div>
-
-                {% if palestrantes %}
-                <div class="hero-speaker reveal">
-                    <div class="hero-speaker-stack">
-                        {% for extra in palestrantes[0].fotos_hero_extra[:2] %}
-                        <div class="hero-speaker-card hero-speaker-card--back hero-speaker-card--back-{{ loop.index }}">
-                            <img src="{{ extra }}" alt="">
-                        </div>
-                        {% endfor %}
-                        <div class="hero-speaker-card hero-speaker-card--front">
-                            <img src="{{ palestrantes[0].foto_hero }}" alt="{{ palestrantes[0].nome }}">
-                        </div>
-                    </div>
-                    <div class="hero-speaker-caption">
-                        <span class="hero-speaker-name">{{ palestrantes[0].nome }}</span>
-                        <span class="hero-speaker-tag">Palestrante</span>
-                    </div>
-                </div>
-                {% endif %}
             </div>
         </div>
     </section>
