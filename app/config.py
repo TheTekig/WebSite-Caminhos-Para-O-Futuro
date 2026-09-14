@@ -62,13 +62,14 @@ PALESTRANTES = [
 
 # --- Programação ---
 PROGRAMACAO = [
-    {"hora": "10h00", "titulo": "Abertura", "descricao": "Recepção e abertura oficial do Caminhos para o Futuro."},
-    {"hora": "10h30", "titulo": "Palestra", "descricao": "Sonhos que viram realidade, com Rafael Furlanetti / XP Inc."},
-    {"hora": "11h30", "titulo": "Encerramento", "descricao": "Considerações finais e networking."},
+    {"hora": "10h30", "titulo": "Abertura", "descricao": "Recepção e abertura oficial do Caminhos para o Futuro."},
+    {"hora": "10h40", "titulo": "Palestra", "descricao": "Sonhos que viram realidade, com Rafael Furlanetti / XP Inc."},
+    {"hora": "12h00", "titulo": "Encerramento", "descricao": "Considerações finais e networking."},
 ]
 
 # --- Apoio / realização ---
 PATROCINADORES = [
     {"nome": "Instituto Federal do Espírito Santo - Campus Colatina", "logo": "/static/img/patrocinadores/3.png"},
     {"nome": "XP Investimentos", "logo": "/static/img/patrocinadores/2.png"},
+    {"nome": "ASSEDIC", "logo": "/static/img/patrocinadores/4.png"},
 ]

@@ -861,45 +861,56 @@ section {
 /* Sobre Section */
 .sobre-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
+  margin-bottom: 2.5rem;
 }
 
 .sobre-card {
   background: linear-gradient(160deg, var(--surface), rgba(15, 23, 42, 0.4));
   border: 1px solid var(--border-color);
   border-radius: 20px;
-  padding: 2rem 1.5rem;
-  text-align: center;
+  padding: 2.25rem 2rem;
   transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
 .sobre-card:hover {
-  transform: translateY(-6px);
+  transform: translateY(-4px);
   border-color: rgba(37, 99, 235, 0.4);
 }
 
-.sobre-icone {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  background: rgba(37, 99, 235, 0.15);
-  margin-bottom: 1rem;
-}
-
 .sobre-card h3 {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: 700;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.75rem;
+  color: var(--text);
+  letter-spacing: -0.01em;
 }
 
 .sobre-card p {
   color: var(--text-muted);
   font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.sobre-texto-destaque {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 2.5rem;
+  font-size: 1.125rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  backdrop-filter: blur(16px);
+}
+
+.sobre-texto-destaque p + p {
+  margin-top: 1.25rem;
+}
+
+.sobre-texto-destaque strong {
+  color: var(--text);
+  font-weight: 600;
 }
 
 /* Inscrição Section */
